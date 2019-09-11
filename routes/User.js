@@ -46,19 +46,19 @@ router.get('/', (req, res) => {
         .catch(err => res.json(err));
 });
 
-// /**
-//  * DELETE route to remove a user from collection
-//  * @name DELETE
-//  * 
-// */ 
-// router.delete('/', (req, res) => {
-//     User.deleteOne(function(err, result) {
-//       if (err) {
-//         res.json(err);
-//       } else {
-//         res.json(result);
-//       }
-//     });
-//   });
+/**
+ * DELETE route to remove a user from collection
+ * @name DELETE
+ * 
+*/ 
+router.delete('/delete', (req, res) => {
+    User.deleteMany(function(err, result) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(result);
+      }
+    });
+  });
 
 module.exports = router;

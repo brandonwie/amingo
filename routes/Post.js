@@ -14,18 +14,25 @@ const router = express.Router();
  */
 
 router.post('/', (req, res) => {
-    const newPost = new Post({
-        message: req.body.message,
-        email: req.body.email
-    })
+    User
+        .find({email: req.body.email})
+        .then(user => {
+            if(user) {
+                console.log("user->", user);
+                const newPost = new Post({
+                message: req.body.message,
+                email: req.body.email,
+                userId: user._id
+            });
     newPost
         .save()
-        .then(post => {
-            res.json(post)
+        .then(post => res.json(post))
+        .catch(err => res.json(err))
+        } else {
+            res.json({message: "User in not found"});
+        }
         })
-        .catch(err => {
-            res.json(err)
-        })
+        .catch(err => res.json({message: err}))
 });
 
 /**
@@ -34,9 +41,27 @@ router.post('/', (req, res) => {
  * 
  */
 router.get('/', (req, res) => {
-    Post.find()
+    Post
+    // Fetch data by category
+    // .find({email: req.body.email}) : email will appear on web address
+        .find({email: req.query.email})
         .then(post => res.json(post))
         .catch(err => res.json(err));
 });
+
+/**
+ * DELETE route to remove a user from collection
+ * @name DELETE
+ * 
+*/ 
+router.delete('/removePost', (req, res) => {
+    Post.deleteMany(function(err, result) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(result);
+      }
+    });
+  });
 
 module.exports = router;
