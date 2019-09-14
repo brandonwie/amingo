@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const keys = require('./config/keys');
 // Connect MongoDB (inclueds ID and PW)
-const db = "mongodb+srv://brandonwie:Marianka3@cluster0-biupg.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const db = keys.mongoURI;
 
 mongoose
-    .connect(db, {})
+    .connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => console.log("DB Connected"))
     .catch(err => console.log(err));
 
