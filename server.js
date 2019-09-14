@@ -18,6 +18,14 @@ const app = express();
 // Configure body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Init passport
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
+// Auth routes
+const authRoutes = require('./routes/Auth');
+app.use('/auth', authRoutes);
+
 // User routes
 const userRoutes = require('./routes/User');
 app.use('/users', userRoutes);
