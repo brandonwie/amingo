@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 const keys = require('./config/keys');
 // Connect MongoDB (inclueds ID and PW)
+
+console.log('keys.mongoURI->>', keys.mongoURI);
 const db = keys.mongoURI;
 
 mongoose
