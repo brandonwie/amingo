@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 const router = express.Router();
 
@@ -13,9 +14,6 @@ const router = express.Router();
  * @param {name} name - name of the user
  * @param {occupation} occupation - occupation of the user
  */
-
- // Register route
- // http://localhost:5000/auth/register
 router.post('/register', (req, res) => {
     User.findOne({email: req.body.email})
         .then( user => {
@@ -31,19 +29,18 @@ router.post('/register', (req, res) => {
                     password: req.body.password,
                     occupation: req.body.occupation
                 })
-            
-                newUser
-                    .save()
-                    .then(user=> {
-                        res.json(user)
-                    })
-                    .catch(err=> {
-                        res.json(err)
-                    })
+                bcrypt.genSalt((err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        newUser.password = hash;
+                        newUser
+                            .save()
+                            .then(user => res.json(user))
+                            .catch(err => console.log(err));
+                    });
+                });
             }
-            
         })
 });
 
 
-module.exports = router;
+module.exports = router; 

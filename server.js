@@ -29,7 +29,7 @@ app.use('/auth', authRoutes);
 
 // User routes
 const userRoutes = require('./routes/User');
-app.use('/users', userRoutes);
+app.use('/users', passport.authenticate('jwt', {session: false}), userRoutes);
 
 // Post routes
 const postRoutes = require('./routes/Post');
