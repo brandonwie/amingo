@@ -13,6 +13,9 @@ const router = express.Router();
  * @param {name} name - name of the user
  * @param {occupation} occupation - occupation of the user
  */
+
+ // Register route
+ // http://localhost:5000/auth/register
 router.post('/register', (req, res) => {
     User.findOne({email: req.body.email})
         .then( user => {
