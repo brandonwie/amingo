@@ -14,4 +14,4 @@
 5. [passport](https://www.passportjs.org) - For authentication
 6. [passport-jwt](https://www.npmjs.com/package/passport-jwt) - For json web token strategy
 7. [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - For json web token
-8. [bcrypt](https://www.npmjs.com/package/bcrypt) - For passoword hashing
+8. [bcrypt](https://www.npmjs.com/package/bcrypt) - For password hashing
